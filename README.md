@@ -12,3 +12,11 @@ the tweets and amazon reviews fetched with the sentiment’s status beside.
 * Users will be able to register to save all the liked topics they searched for in
 order to get back to the tweets and charts and to track the updates made
 about these topics.
+### Lessons that the project team learn
+* scraing websites using Python (Beautiful Soup).
+*  working with API’s (Twitter API).
+*  showing creative charts using chart.js
+*  Data Cleaning, Analysis and Visualization using Python
+*  Modeling different machine learning algorithms using Python (scikit-learn)
+*  Testing data prediction is hugely affected by the model trained data
+*  How to integrate model with the website using Django framework
