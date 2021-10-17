@@ -1,0 +1,100 @@
+{% load static %}
+{% load bootstrap4 %}
+<!-- {{user}}
+{% for topic in user.topics.all%}
+ 
+{{topic}}   
+{% endfor %}   -->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+
+    <title>Profile</title>
+</head>
+
+<body>
+    <div class="parent d-flex align-items-center">
+        <div class="container ss db-social w-75 m-auto shadow-lg overflow-auto">
+            <div class="jumbotron jumbotron-fluid"></div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xl-11">
+                        <div class="widget head-profile has-shadow">
+                            <div class="widget-body pb-0">
+                                <div class="row d-flex align-items-center">
+                                    <div
+                                        class="col-xl-4 col-md-4 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
+
+                                    </div>
+                                    <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+                                        <div class="image-default">
+                                            <!-- <img class="rounded-circle" src="{% static 'images/ss-10@2x.png' %}" alt="..."> -->
+                                        </div>
+                                        <div class="infos mb-5">
+                                            <h2>{{user}}</h2>
+                                            <div class="location">{{user.email}}</div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-xl-4 col-md-4 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 ">
+                    <ul class="nav flex-column perosnal-nav ml-4 ">
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'accounts:home' %}"><i class="fas fa-home mr-2 "></i>Home</a>
+                        </li>
+                        <li class="nav-item saved-topics">
+                            <a class="nav-link " href="#">
+                                <i class="fas fa-folder mr-2"></i>Saved topics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}" class=" btn btn-visionalyst rounded-pill ml-2 mt-3 mb-5">Log out </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+                <div class="col-md-9  overflow-auto reports">
+                   
+                    <div class="row pb-4">
+                        {% for topic in user.topics.all%}  
+                        <div class="col-lg-4 mb-5 col-sm-6">
+                            <div class="card">
+                               
+                                <div class="card-body text-center">
+                                    <h5 name="topic" class="card-title pb-2">{{topic}} </h5>
+                                    <a  href="{% url 'accounts:create_report' topic.topic_name %}" class="btn btn-visionalyst">Generate report</a>  
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+                    
+                        {% endfor %}           
+            </div>
+            
+        </div>
+        <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/mine.js' %}"></script>
+</body>
+
+</html>

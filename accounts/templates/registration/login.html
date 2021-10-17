@@ -1,0 +1,109 @@
+{% load static %}
+{% load bootstrap4 %}
+ <!-- {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}"/>
+
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="vh-100 d-flex  align-items-center">
+        <div class="container bg-light w-75  login rounded shadow  ">
+            <div class="row align-items-center p-5">
+                <div class="col-md-6 left-half">
+                    <img class="img-fluid" src="{% static 'images/Secure login-bro.png' %}" alt="">
+                </div>
+                <div class="col-md-6 right-half">
+                    <h2 class="text-center pb-4">BE ONE OF US</h2>
+                    <!-- <form>
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="text" class="form-control form-control rounded-pill w-75"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email@gmail.com">
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="password" class="form-control form-control w-75 rounded-pill"
+                                id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="d-flex justify-content-center pt-4">
+                            <button class="btn btn-visionalyst rounded-pill px-5 ">Log in</button>
+                        </div>
+                    </form> -->
+     
+                    <div class="container">
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Your username and password didn't match. Please try again.</strong>
+                        </div>
+                        {% endif %}
+                        {% if next %}
+                            {% if user.is_authenticated %}
+                            <p>Your account doesn't have access to this page. To proceed,
+                            please login with an account that has access.</p>
+                            {% else %}
+                            <p>Please login to see this page.</p>
+                            {% endif %}
+                        {% endif %}
+                        <!-- {% if error_message %}
+                                            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                                        {% endif %} -->
+                        <form action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                         
+                                
+                                        
+                                        <div class="form-group clearfix">
+                                           
+                                            <div class="form-group d-flex justify-content-center">
+                                                <input class="form-control form-control rounded-pill w-75" name="username" value="" type="text"  />
+                                            </div>
+                                        </div>
+                                        <div class="form-group d-flex justify-content-center">
+                                            
+                                                <input name="password" type="password" class="form-control form-control w-75 rounded-pill" />
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-center pt-4">
+                                            <button class="btn btn-visionalyst rounded-pill px-5 ">Log in</button>
+                                       
+                                           
+                                        </div>
+                                    </form>
+                                    <div class="py-4 d-flex justify-content-center">
+                                        <span>Don't have an acoount?</span>
+                                        <a href="{% url 'accounts:signup' %}" class="font-weight-bolder pl-2 text-primary">Sign up</a>
+                                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

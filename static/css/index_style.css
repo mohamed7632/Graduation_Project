@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: default;
+    
+}
+.order-lg{
+    order: 0;
+}
+
+.navbar-light .navbar-toggler{
+    border: none;
+   
+}
+.navbar-light .navbar-toggler-icon{
+    background: none;
+
+}
+.navbar a{
+    color: black;
+    font-size: 16px;
+    font-weight:600;
+}
+.navbar a:hover{
+    color: #92E3A9;
+    cursor: pointer;
+    transition: 0.2s;
+
+}
+.main-color{
+    color: #92E3A9;
+}
+.navbar-white
+{
+    background-color: #FFF;
+}
+.btn-visionalyst
+{
+    background-color:#92E3A9;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-visionalyst:hover{
+    background-color: transparent;
+    border:1px solid #92E3A9;
+    color: #92E3A9;
+    transition: 0.5s;
+}
+.search-btn:hover{
+    background-color:#30a852 ;
+    color: #92E3A9;
+    transition: 0.5s;
+}
+.header-btn{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    transform: scale(.4);
+    position: absolute;
+    top: -80px;
+    right: -63px;
+   
+}
+.header-btn img{
+    width: 100%;
+}
+
+.slogan h1{
+    color: #92E3A9;
+    font-size: 5rem;
+    font-weight: 600;
+}
+.slogan p
+{
+    font-weight: 400;
+    font-size: 30px;
+}
+.search-button{
+    color: #92E3A9;
+    background-color: #fff;
+    font-size: 30px;
+}
+.services .services-content h2
+{
+    font-size: 30px;
+    font-weight: bold;
+}
+.services .services-content p
+{
+    font-weight: 400;
+    color: #263238;
+}
+.goals .goal i
+{
+    color:#92E3A9 ;
+    font-size: 6.25rem;
+}
+.goal{
+    transition:box-shadow 1s , border-radius 1s ;
+    padding: 40px;
+}
+.goal:hover{
+    border-radius: 50px;
+
+box-shadow:  20px 20px 60px #d4c9c9,
+             -20px -20px 60px #ffffff;
+}
+.goals p {
+font-size:18px;
+font-weight: 400;
+color: #263238;
+}
+.contact{
+    background-color: #263238;
+   
+    color: #92E3A9;
+}
+.contact p{
+    color: white;
+    font-size: 22px;
+    font-weight: 300;
+}
+.social-icons{
+    font-size: 20px;
+    color: white;
+}
+.social-icons i:hover
+{
+    color: #92E3A9;
+    transition: all 0.8s;
+}
+textarea ,input{
+    border-width: 1.5px !important;
+    border-color:#92E3A9 !important ;
+} 
+
+
+
+
+
+
+@media screen and (max-width:960px) {
+
+    .order-lg{
+        order: 2;
+
+    };
+    .margin-bottom-lg{
+        margin-bottom:20px;
+    }
+    .slogan h1{
+        font-size: 4rem;
+    }
+    
+}

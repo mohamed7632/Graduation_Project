@@ -1,0 +1,128 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <title>Dashboards</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-color shadow d-flex justify-content-between">
+        <a class="navbar-brand" href="{% url 'systemApp:home' %}">
+            <img src="{% static 'images/graph-analysis-1.png' %}" alt="" width="30.02" height="25.27" /></a>
+
+        <div class="navbar-nav ml-5">
+            <p class="nav-item ml-md-5 mb-0">{{search}}</p>
+            <!--el kelma elly 3ml search 3leha -->
+        </div>
+
+        <a href="{% url 'systemApp:tweets' %}"
+            class="btn btn-visionalyst rounded-pill px-lg-5 px-sm-2 nav-btn">Tweets</a>
+    </nav>
+
+    <h2 class="text-center py-5 font-weight-bold main-color">DASHBOARDS</h2>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+
+            <div class="col-md-8 mb-5">
+                <div class="card border-0 rounded-lg shadow-sm">
+                    <div class="card-body">
+                        <canvas id="myLineChart" width="400" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <div class="card border-0 rounded-lg shadow-sm">
+                    <div class="card-body">
+                        <canvas id="myDoughnutChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/chart.min.js' %}"></script>
+    <script>
+        var ctx1 = document.getElementById('myLineChart').getContext('2d');
+        var myBarChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: {{ labels_positive| safe}},
+        datasets: [{
+            label: 'Positive',
+            data: {{ counts_positive| safe}},
+            backgroundColor: ['#36a2eb'],
+            borderWidth: 2,
+            borderColor: '#36a2eb'
+                },
+        {
+            label: 'Negative',
+            data: {{ counts_negative| safe}},
+            backgroundColor: ['#dc3545'],
+            borderWidth: 2,
+            borderColor: '#dc3545'
+                }]
+
+            },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                        text: 'Sentiment over years',
+                            font: { size: 20 }
+                },
+                legend: {
+                    position: 'right',
+                        borderColor: "#36a2eb"
+                }
+            }
+        }
+        });
+
+        var ctx4 = document.getElementById('myDoughnutChart').getContext('2d');
+        var myPieChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: {{ sent| safe}},
+        datasets: [
+            {
+                label: '# of Votes',
+                data: {{ sent_count| safe}},
+            backgroundColor: [
+                '#36a2eb','#dc3545'
+            ],
+            borderColor: [
+            '#36a2eb','#dc3545'
+            ],
+            borderWidth: 1
+            }]
+    },
+        options: {
+            responsive: true,
+                plugins: {
+                legend: {
+                    position: 'top',
+            },
+                title: {
+                    display: true,
+                        text: 'Predicted sentiment'
+                }
+            }
+
+        }
+});
+    </script>
+
+</body>
+
+</html>

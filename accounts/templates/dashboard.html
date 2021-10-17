@@ -1,0 +1,360 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <title>Dashboards</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-color shadow d-flex justify-content-between">
+        <a class="navbar-brand" href="{% url 'accounts:home' %}">
+            <img src="{% static 'images/graph-analysis-1.png' %}" alt="" width="30.02" height="25.27" /></a>
+
+        <div class="navbar-nav">
+            <p class="nav-item mb-0">
+
+                {{search}}
+
+
+
+            </p>
+
+
+            <!--el kelma elly 3ml search 3leha -->
+        </div>
+        <div>
+            <a href="{% url 'accounts:save_topic' search %} "
+                class="btn btn-visionalyst rounded-pill px-lg-5 px-sm-2 nav-btn">Save
+                report</a>
+            <a href="{% url 'accounts:tweets' %} "
+                class="btn btn-visionalyst rounded-pill px-lg-5 px-sm-2 nav-btn">tweets</a>
+        </div>
+    </nav>
+    <h2 class="text-center py-5 font-weight-bold main-color">DASHBOARDS</h2>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8 mb-3">
+                <div class="card border-0 rounded-lg shadow-lg" style="height:400px">
+                    <canvas id="myLineChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card d-flex justify-content-center border-0 rounded-lg shadow-lg h-100">
+                    <h4 class="text-center py-4 font-weight-bold text-muted">TRENDINGS</h4>
+                    <div class="list-group list-group-flush text-muted trends">
+                        <div class="list-group-item d-flex justify-content-between">
+                            <i class="fas fa-chart-pie "></i>
+                            <div class="  text-right">
+                                <p class=" trend-text text-muted my-0">{{top_aspects_count}}</p>
+                                <p class="my-0">{{top_aspect}}</p>
+                            </div>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <i class="fab fa-slack-hash"></i>
+                            <div class="  text-right">
+                                <p class="trend-text my-0 text-muted">{{top_hash_count}}</p>
+                                <p class="my-0">{{top_hash}}</p>
+                            </div>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <i class="fas fa-globe-africa"></i>
+                            <div class="  text-right">
+                                <p class=" trend-text my-0 text-muted">{{top_loc_count}}</p>
+                                <p class="my-0">{{top_location}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <div class="card border-0 rounded-lg shadow-lg">
+                    <div class="card-body" style="height:400px">
+                        <canvas id="myDoudhuntChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 mb-5 ">
+                <div class="card border-0 rounded-lg shadow-lg ">
+                    <div class="card-body" style="height:400px">
+                        <canvas id="myMixedBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-6 mb-5">
+                <div class="card border-0 rounded-lg shadow-lg">
+                    <div class="card-body" >
+                        <canvas  width="400" height="400"  id="myBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6 mb-5">
+                <div class="card border-0 rounded-lg shadow-lg">
+                    <div class="card-body" >
+                        <canvas width="400" height="400"  id="myBarChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- <div class="col-md-12 mb-5 ">
+                <div class="card border-0 rounded-lg shadow-lg ">
+                    <div class="card-body">
+                        <canvas id="myWordcloudChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div> -->
+            
+
+
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src=" https://unpkg.com/chart.js@3.3.2/dist/chart.js "></script>
+    <script src="{% static 'js/index.umd.js' %}"></script>
+    <!-- <script src="{% static 'js/dashboard.js' %}"></script> -->
+    <!-- {{noun}}
+    {{sent_noun}}
+    {{noun_count}} -->
+    <!-- {{labels_positive}}
+    {{counts_positive}}
+    {{hashtag}} -->
+    <!-- {{noun}}
+    {{sent_noun}}
+    {{noun_count}} -->
+    <script>
+
+        console.log(typeof (d))
+        var ctx1 = document.getElementById('myLineChart').getContext('2d');
+        var myLineChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: {{ labels_positive| safe}},
+        datasets: [{
+            label: 'Positive',
+            data: {{ counts_positive| safe}},
+            backgroundColor: ['#36a2eb'],
+            borderWidth: 2,
+            borderColor: '#36a2eb'
+                },
+        {
+            label: 'Negative',
+            data: {{ counts_negative| safe}},
+            backgroundColor: ['#ff0000'],
+            borderWidth: 2,
+            borderColor: '#ff0000'
+                }]
+
+            },
+        options: {
+            responsive:true,
+            plugins: {
+                title: {
+                    display: true,
+                        text: 'Sentiment over monthes (2021)',
+                            font: { size: 20 }
+                },
+                legend: {
+                    position: 'right',
+                        borderColor: "#36a2eb"
+                }
+            }
+        }
+        });
+
+        var ctx2 = document.getElementById('myBarChart').getContext('2d');
+        var myLineChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: {{ hashtag| safe}},
+        datasets: [{
+            label: "# hashtag",
+            data: {{ hash_count| safe}},
+            backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+            // borderColor: [
+            //     'rgba(146, 277, 169, 1)',
+            //     'rgba(54, 162, 235, 1)',
+            //     'rgba(255, 206, 86, 1)',
+            //     'rgba(75, 192, 192, 1)',
+            //     'rgba(1 53, 102, 255, 1)',
+            //     'rgba(255, 159, 64, 1)'
+            // ],
+            // borderWidth:3
+        }]
+    },
+        options: {
+            responsive:true,
+            plugins: {
+                title: {
+                    display: true,
+                        text: 'Top 10 hashtags mentioned',
+                            font: { size: 20 }
+                },
+                legend: {
+                    position: 'right',
+                        borderColor: "#36a2eb"
+                }
+            }
+
+        }
+});
+        var ctx3 = document.getElementById('myBarChart2').getContext('2d');
+        var mybarChart = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: {{ location| safe}},
+        datasets: [
+            {
+                label: "# location",
+                data: {{ loc_count| safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+            }]
+    },
+        options: {
+            responsive:true,
+            plugins: {
+                title: {
+                    display: true,
+                        text: 'Top 10 locations mentioned',
+                            font: { size: 20 }
+                },
+                legend: {
+                    display:false   
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});
+        var ctx4 = document.getElementById('myDoudhuntChart').getContext('2d');
+        var myPieChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels:['Positive','Negative'],
+        datasets: [
+            {
+                label: '# of Votes',
+                data: {{ sent_count| safe}},
+            backgroundColor: ['#36a2eb','#ff0000'],
+
+            borderColor: ['#36a2eb','#ff0000'],
+            borderWidth: 1
+            }]
+    },
+        options: {
+            responsive: true,
+                plugins: {
+                legend: {
+                    position: 'top',
+            },
+                title: {
+                    display: true,
+                        text: 'Predicted sentiment',
+                            font: { size: 20 },
+                }
+            }
+
+        }
+});
+
+        var ctx8 = document.getElementById('myMixedBarChart').getContext('2d');
+        var myMixedChart = new Chart(ctx8, {
+            type: 'bar',
+            data: {
+                labels: {{ noun| safe}},
+        datasets: [{
+            label: 'Positive',
+            data: {{ pos| safe}},
+            backgroundColor: ['#36a2eb'],
+            borderWidth: 2,
+            borderColor: '#36a2eb'
+                        },
+        {
+            label: 'Negative',
+            data: {{ neg| safe}},
+            backgroundColor: ['#ff0000'],
+            borderWidth: 2,
+            borderColor: '#ff0000'
+                        }]
+        
+                    },
+        options: {
+            responsive:true,
+            plugins: {
+                title: {
+                    display: true,
+                        text: 'Top 10 aspects mentioned',
+                            font: { size: 20 }
+                },
+                legend: {
+                    position: 'right',
+                        borderColor: "#36a2eb"
+                }
+            }
+
+        }
+});
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
